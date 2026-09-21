@@ -1,0 +1,186 @@
+mysql> create database datatypes;
+Query OK, 1 row affected (0.409 sec)
+
+mysql> use datatypes;
+Database changed
+mysql> create table student(
+    -> sid int,
+    -> sage int,
+    -> smarks int);
+Query OK, 0 rows affected (0.814 sec)
+
+mysql> insert into student values(1,12,99);
+Query OK, 1 row affected (0.137 sec)
+
+mysql> insert into student values(2,22,89),(3,21,78),(4,11,67);
+Query OK, 3 rows affected (1.736 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+------+--------+
+| sid  | sage | smarks |
++------+------+--------+
+|    1 |   12 |     99 |
+|    2 |   22 |     89 |
+|    3 |   21 |     78 |
+|    4 |   11 |     67 |
++------+------+--------+
+4 rows in set (0.054 sec)
+
+mysql> desc student;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| sid    | int  | YES  |     | NULL    |       |
+| sage   | int  | YES  |     | NULL    |       |
+| smarks | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+3 rows in set (0.413 sec)
+
+mysql> create table employee(
+    -> eid int,
+    -> age int,
+    -> esal int);
+Query OK, 0 rows affected (0.379 sec)
+
+mysql> insert into employee values(101,14,2000),(102,19,30000),(103,20,50000);
+Query OK, 3 rows affected (0.125 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++------+------+-------+
+| eid  | age  | esal  |
++------+------+-------+
+|  101 |   14 |  2000 |
+|  102 |   19 | 30000 |
+|  103 |   20 | 50000 |
++------+------+-------+
+3 rows in set (0.015 sec)
+
+mysql> create table product(
+    -> pid int,
+    -> price decimal(5,2));
+Query OK, 0 rows affected (0.427 sec)
+
+mysql> insert into product values(1,123.43);
+Query OK, 1 row affected (0.080 sec)
+
+mysql> insert into product values(2,233.23),(3,12.34);
+Query OK, 2 rows affected (0.034 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from product;
++------+--------+
+| pid  | price  |
++------+--------+
+|    1 | 123.43 |
+|    2 | 233.23 |
+|    3 |  12.34 |
++------+--------+
+3 rows in set (0.007 sec)
+
+mysql> create table customer(
+    -> cid int,
+    -> gender char(1),
+    -> cname varchar(30));
+Query OK, 0 rows affected (0.321 sec)
+
+mysql> insert into customer values(101,'M','Venky');
+Query OK, 1 row affected (0.090 sec)
+
+mysql> insert into customer values(102,'F','Krishna');
+Query OK, 1 row affected (0.055 sec)
+
+mysql> insert into customer values(103,'M','Satya');
+Query OK, 1 row affected (0.041 sec)
+
+mysql> insert into customer values(104,'F','Anusha');
+Query OK, 1 row affected (0.190 sec)
+
+mysql> select * from customer;
++------+--------+---------+
+| cid  | gender | cname   |
++------+--------+---------+
+|  101 | M      | Venky   |
+|  102 | F      | Krishna |
+|  103 | M      | Satya   |
+|  104 | F      | Anusha  |
++------+--------+---------+
+4 rows in set (0.013 sec)
+
+mysql> create table account(
+    -> id int,
+    -> name varchar(30),
+    -> account_active boolean);
+Query OK, 0 rows affected (0.315 sec)
+
+mysql> desc account;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int         | YES  |     | NULL    |       |
+| name           | varchar(30) | YES  |     | NULL    |       |
+| account_active | tinyint(1)  | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.115 sec)
+
+mysql> insert into account values(1,'kaveri','True');
+ERROR 1366 (HY000): Incorrect integer value: 'True' for column 'account_active' at row 1
+mysql> insert into account values(1,'kaveri',1);
+Query OK, 1 row affected (0.037 sec)
+
+mysql> insert into account values(2,'',1);
+Query OK, 1 row affected (0.038 sec)
+
+mysql> select * from account;
++------+--------+----------------+
+| id   | name   | account_active |
++------+--------+----------------+
+|    1 | kaveri |              1 |
+|    2 |        |              1 |
++------+--------+----------------+
+2 rows in set (0.004 sec)
+
+mysql> delete table account where id =2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table account where id =2' at line 1
+mysql> delete table account where id 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table account where id 2' at line 1
+mysql> delete  account where id 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id 2' at line 1
+mysql> insert into account values(2,'raju',0);
+Query OK, 1 row affected (0.048 sec)
+
+mysql> create table bookings(
+    -> bid int,
+    -> name varchar(30),
+    -> booking_date date);
+Query OK, 0 rows affected (0.324 sec)
+
+mysql> desc bookings;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| bid          | int         | YES  |     | NULL    |       |
+| name         | varchar(30) | YES  |     | NULL    |       |
+| booking_date | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.037 sec)
+
+mysql> insert into bookings values(201,'srihitha','2026-10-30');
+Query OK, 1 row affected (0.060 sec)
+
+mysql> insert into bookings values(202,'akhila','2026-02-14');
+Query OK, 1 row affected (0.047 sec)
+
+mysql> insert into bookings values(203,'uma','2025-03-21');
+Query OK, 1 row affected (0.046 sec)
+
+mysql> select * from bookings;
++------+----------+--------------+
+| bid  | name     | booking_date |
++------+----------+--------------+
+|  201 | srihitha | 2026-10-30   |
+|  202 | akhila   | 2026-02-14   |
+|  203 | uma      | 2025-03-21   |
++------+----------+--------------+
+3 rows in set (0.008 sec)
