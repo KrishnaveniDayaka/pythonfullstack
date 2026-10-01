@@ -1,0 +1,308 @@
+mysql> create table employees(
+    -> emp_id int primary key,
+    -> emp_name varchar(40),
+    -> department varchar(40),
+    -> salary bigint,
+    -> city varchar(40),
+    -> experience int );
+Query OK, 0 rows affected (1.233 sec)
+
+_________________________________________________________________________
+mysql> insert into employees values(104,'sneha','finanace',80000,'banglore',6);
+Query OK, 1 row affected (0.071 sec)
+
+mysql> insert into employees values(105,'kiran','hr',50000,'chennai',3);
+Query OK, 1 row affected (0.050 sec)
+
+mysql> insert into employees values(106,'divya','finanace',90000,'hyderabad',7);
+Query OK, 1 row affected (0.045 sec)
+
+mysql> insert into employees values(107,'ramesh','it',55000,'banglore',2);
+Query OK, 1 row affected (0.047 sec)
+
+mysql> insert into employees values(108,'anu','hr',65000,'hyderabad',4);
+Query OK, 1 row affected (0.049 sec)
+
+mysql> insert into employees values(109,'vikram','finanace',70000,'chennai',5);
+Query OK, 1 row affected (0.044 sec)
+
+mysql> insert into employees values(110,'pooja','it',40000,'hyderabad',1);
+Query OK, 1 row affected (0.046 sec)
+
+mysql> INSERT INTO employees (emp_id, emp_name, department, salary, location, experience_years) VALUES
+    -> (111, 'Naveen', 'Sales', 60000, 'Bangalore', 4),
+    -> (112, 'Swathi', 'Sales', 75000, 'Chennai', 6),
+    -> (113, 'Manoj', 'IT', 85000, 'Chennai', 8),
+    -> (114, 'Keerthi', 'HR', 55000, 'Bangalore', 3),
+    -> (115, 'Ajay', 'Sales', 50000, 'Hyderabad', 2);
+ERROR 1054 (42S22): Unknown column 'location' in 'field list'
+mysql> INSERT INTO employees  VALUES(111, 'Naveen', 'Sales', 60000, 'Bangalore', 4);
+Query OK, 1 row affected (0.072 sec)
+
+mysql> insert into employees values(112, 'Swathi', 'Sales', 75000, 'Chennai', 6);
+Query OK, 1 row affected (0.041 sec)
+______________________________________________________________________
+
+
+mysql> select * from employees;
++--------+----------+------------+--------+-----------+------------+
+| emp_id | emp_name | department | salary | city      | experience |
++--------+----------+------------+--------+-----------+------------+
+|    101 | rahul    | it         |  60000 | hyderabad |          3 |
+|    102 | priya    | hr         |  45000 | chennai   |          2 |
+|    103 | arjun    | it         |  75000 | hyderabad |          5 |
+|    104 | sneha    | finanace   |  80000 | banglore  |          6 |
+|    105 | kiran    | hr         |  50000 | chennai   |          3 |
+|    106 | divya    | finanace   |  90000 | hyderabad |          7 |
+|    107 | ramesh   | it         |  55000 | banglore  |          2 |
+|    108 | anu      | hr         |  65000 | hyderabad |          4 |
+|    109 | vikram   | finanace   |  70000 | chennai   |          5 |
+|    110 | pooja    | it         |  40000 | hyderabad |          1 |
+|    111 | Naveen   | Sales      |  60000 | Bangalore |          4 |
+|    112 | Swathi   | Sales      |  75000 | Chennai   |          6 |
+|    113 | Manoj    | IT         |  85000 | Chennai   |          8 |
+|    114 | Keerthi  | HR         |  55000 | Bangalore |          3 |
+|    115 | Ajay     | Sales      |  50000 | Hyderabad |          2 |
++--------+----------+------------+--------+-----------+------------+
+15 rows in set (0.041 sec)
+
+mysql> select sum(salary) from employees;
++-------------+
+| sum(salary) |
++-------------+
+|      955000 |
++-------------+
+1 row in set (0.005 sec)
+
+mysql> select avg(salary) from employees;
++-------------+
+| avg(salary) |
++-------------+
+|  63666.6667 |
++-------------+
+1 row in set (0.005 sec)
+
+mysql> select max(salary) from employees;
++-------------+
+| max(salary) |
++-------------+
+|       90000 |
++-------------+
+1 row in set (0.010 sec)
+
+mysql> select min(salary) from employees;
++-------------+
+| min(salary) |
++-------------+
+|       40000 |
++-------------+
+1 row in set (0.004 sec)
+
+mysql> select count(*) from employees;
++----------+
+| count(*) |
++----------+
+|       15 |
++----------+
+1 row in set (0.150 sec)
+
+mysql> select * from employees
+    -> where salary>60000;
++--------+----------+------------+--------+-----------+------------+
+| emp_id | emp_name | department | salary | city      | experience |
++--------+----------+------------+--------+-----------+------------+
+|    103 | arjun    | it         |  75000 | hyderabad |          5 |
+|    104 | sneha    | finanace   |  80000 | banglore  |          6 |
+|    106 | divya    | finanace   |  90000 | hyderabad |          7 |
+|    108 | anu      | hr         |  65000 | hyderabad |          4 |
+|    109 | vikram   | finanace   |  70000 | chennai   |          5 |
+|    112 | Swathi   | Sales      |  75000 | Chennai   |          6 |
+|    113 | Manoj    | IT         |  85000 | Chennai   |          8 |
++--------+----------+------------+--------+-----------+------------+
+7 rows in set (0.014 sec)
+
+mysql> select * from employees
+    -> where city='hyderabad' and experience>3;
++--------+----------+------------+--------+-----------+------------+
+| emp_id | emp_name | department | salary | city      | experience |
++--------+----------+------------+--------+-----------+------------+
+|    103 | arjun    | it         |  75000 | hyderabad |          5 |
+|    106 | divya    | finanace   |  90000 | hyderabad |          7 |
+|    108 | anu      | hr         |  65000 | hyderabad |          4 |
++--------+----------+------------+--------+-----------+------------+
+3 rows in set (0.017 sec)
+
+mysql> select * from employees
+    -> where salary between 50000 and 80000;
++--------+----------+------------+--------+-----------+------------+
+| emp_id | emp_name | department | salary | city      | experience |
++--------+----------+------------+--------+-----------+------------+
+|    101 | rahul    | it         |  60000 | hyderabad |          3 |
+|    103 | arjun    | it         |  75000 | hyderabad |          5 |
+|    104 | sneha    | finanace   |  80000 | banglore  |          6 |
+|    105 | kiran    | hr         |  50000 | chennai   |          3 |
+|    107 | ramesh   | it         |  55000 | banglore  |          2 |
+|    108 | anu      | hr         |  65000 | hyderabad |          4 |
+|    109 | vikram   | finanace   |  70000 | chennai   |          5 |
+|    111 | Naveen   | Sales      |  60000 | Bangalore |          4 |
+|    112 | Swathi   | Sales      |  75000 | Chennai   |          6 |
+|    114 | Keerthi  | HR         |  55000 | Bangalore |          3 |
+|    115 | Ajay     | Sales      |  50000 | Hyderabad |          2 |
++--------+----------+------------+--------+-----------+------------+
+11 rows in set (0.031 sec)
+
+mysql> select * from employees
+    -> order by salary desc;
++--------+----------+------------+--------+-----------+------------+
+| emp_id | emp_name | department | salary | city      | experience |
++--------+----------+------------+--------+-----------+------------+
+|    106 | divya    | finanace   |  90000 | hyderabad |          7 |
+|    113 | Manoj    | IT         |  85000 | Chennai   |          8 |
+|    104 | sneha    | finanace   |  80000 | banglore  |          6 |
+|    103 | arjun    | it         |  75000 | hyderabad |          5 |
+|    112 | Swathi   | Sales      |  75000 | Chennai   |          6 |
+|    109 | vikram   | finanace   |  70000 | chennai   |          5 |
+|    108 | anu      | hr         |  65000 | hyderabad |          4 |
+|    101 | rahul    | it         |  60000 | hyderabad |          3 |
+|    111 | Naveen   | Sales      |  60000 | Bangalore |          4 |
+|    107 | ramesh   | it         |  55000 | banglore  |          2 |
+|    114 | Keerthi  | HR         |  55000 | Bangalore |          3 |
+|    105 | kiran    | hr         |  50000 | chennai   |          3 |
+|    115 | Ajay     | Sales      |  50000 | Hyderabad |          2 |
+|    102 | priya    | hr         |  45000 | chennai   |          2 |
+|    110 | pooja    | it         |  40000 | hyderabad |          1 |
++--------+----------+------------+--------+-----------+------------+
+15 rows in set (0.016 sec)
+
+mysql> select * from employees
+    -> where city='chennai'
+    -> order by experience;
++--------+----------+------------+--------+---------+------------+
+| emp_id | emp_name | department | salary | city    | experience |
++--------+----------+------------+--------+---------+------------+
+|    102 | priya    | hr         |  45000 | chennai |          2 |
+|    105 | kiran    | hr         |  50000 | chennai |          3 |
+|    109 | vikram   | finanace   |  70000 | chennai |          5 |
+|    112 | Swathi   | Sales      |  75000 | Chennai |          6 |
+|    113 | Manoj    | IT         |  85000 | Chennai |          8 |
++--------+----------+------------+--------+---------+------------+
+5 rows in set (0.005 sec)
+
+mysql> select department, sum(salary) as total_salary
+    -> from employees
+    -> group by department;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| it         |       315000 |
+| hr         |       215000 |
+| finanace   |       240000 |
+| Sales      |       185000 |
++------------+--------------+
+4 rows in set (0.067 sec)
+
+mysql> select department ,avg(salary) as average_salary from employees
+    -> group by department;
++------------+----------------+
+| department | average_salary |
++------------+----------------+
+| it         |     63000.0000 |
+| hr         |     53750.0000 |
+| finanace   |     80000.0000 |
+| Sales      |     61666.6667 |
++------------+----------------+
+4 rows in set (0.022 sec)
+
+mysql> select department,count(*) as number_of_employees from employees
+    -> group by department;
++------------+---------------------+
+| department | number_of_employees |
++------------+---------------------+
+| it         |                   5 |
+| hr         |                   4 |
+| finanace   |                   3 |
+| Sales      |                   3 |
++------------+---------------------+
+4 rows in set (0.015 sec)
+
+mysql> select department,max(salary) as maximum_salary from employees
+    -> group by department;
++------------+----------------+
+| department | maximum_salary |
++------------+----------------+
+| it         |          85000 |
+| hr         |          65000 |
+| finanace   |          90000 |
+| Sales      |          75000 |
++------------+----------------+
+4 rows in set (0.011 sec)
+
+mysql> select department,avg(salary) as average_salary from employees
+    -> group by department;
++------------+----------------+
+| department | average_salary |
++------------+----------------+
+| it         |     63000.0000 |
+| hr         |     53750.0000 |
+| finanace   |     80000.0000 |
+| Sales      |     61666.6667 |
++------------+----------------+
+4 rows in set (0.006 sec)
+
+mysql> select department, avg(salary) as average_salary from employees
+    -> group by department
+    -> having avg(salary)>60000;
++------------+----------------+
+| department | average_salary |
++------------+----------------+
+| it         |     63000.0000 |
+| finanace   |     80000.0000 |
+| Sales      |     61666.6667 |
++------------+----------------+
+3 rows in set (0.028 sec)
+
+mysql> select department,count(*) as employees_count from employees
+    -> group by department
+    -> having count(*)>3;
++------------+-----------------+
+| department | employees_count |
++------------+-----------------+
+| it         |               5 |
+| hr         |               4 |
++------------+-----------------+
+2 rows in set (0.014 sec)
+
+mysql> select city,sum(salary) as total_salary from employees
+    -> group by city
+    -> having sum(salary)>200000;
++-----------+--------------+
+| city      | total_salary |
++-----------+--------------+
+| hyderabad |       380000 |
+| chennai   |       325000 |
++-----------+--------------+
+2 rows in set (0.082 sec)
+
+mysql> select department,avg(experience) as average_experience from employees
+    -> group by department
+    -> having avg(experience)>4
+    -> order by average_experience desc;
++------------+--------------------+
+| department | average_experience |
++------------+--------------------+
+| finanace   |             6.0000 |
++------------+--------------------+
+1 row in set (0.173 sec)
+
+mysql> select department,sum(salary) as total_salary from employees
+    -> group by department
+    -> having sum(salary)>200000
+    -> order by total_salary desc;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| it         |       315000 |
+| finanace   |       240000 |
+| hr         |       215000 |
++------------+--------------+
+3 rows in set (0.027 sec)

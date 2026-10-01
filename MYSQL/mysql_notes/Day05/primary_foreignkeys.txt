@@ -1,0 +1,139 @@
+mysql> create database mysql_practice;
+Query OK, 1 row affected (1.308 sec)
+
+mysql> use mysql_practice;
+Database changed
+mysql> create table student(
+    -> sid int primary key,
+    -> sname varchar(30) not null,
+    -> sage int);
+Query OK, 0 rows affected (0.835 sec)
+
+mysql> create table college(
+    -> sid int,
+    -> cname varchar(30),
+    -> caddress varchar(40),
+    -> foreign key(sid) references to student(sid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to student(sid))' at line 5
+mysql> create table college(
+    -> sid int,
+    -> cname varchar(30),
+    -> caddress varchar(40),
+    -> foreign key(sid) references student(sid));
+Query OK, 0 rows affected (1.195 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | NO   | PRI | NULL    |       |
+| sname | varchar(30) | NO   |     | NULL    |       |
+| sage  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.514 sec)
+
+mysql> desc college;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid      | int         | YES  | MUL | NULL    |       |
+| cname    | varchar(30) | YES  |     | NULL    |       |
+| caddress | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.036 sec)
+
+mysql> insert into student values(1,'krishna','21);
+    '> ;
+    '> ^X
+    '> ^C
+mysql>
+mysql> insert into student values(1,'krishna',21);
+Query OK, 1 row affected (0.162 sec)
+
+mysql> insert into student values(2,'venky',25);
+Query OK, 1 row affected (0.382 sec)
+
+mysql> insert into student values(3,'naga',31);
+Query OK, 1 row affected (0.046 sec)
+
+mysql> insert into student values(4,'karthik',32);
+Query OK, 1 row affected (0.046 sec)
+
+mysql> select * from student;
++-----+---------+------+
+| sid | sname   | sage |
++-----+---------+------+
+|   1 | krishna |   21 |
+|   2 | venky   |   25 |
+|   3 | naga    |   31 |
+|   4 | karthik |   32 |
++-----+---------+------+
+4 rows in set (0.005 sec)
+
+mysql> insert into college values(1,'lbrce','vjd');
+Query OK, 1 row affected (0.082 sec)
+
+mysql> insert into college values(2,'lbrce','mym');
+Query OK, 1 row affected (0.051 sec)
+
+mysql> insert into college values(3,'pvp','vjd');
+Query OK, 1 row affected (0.041 sec)
+
+mysql> insert into college values(4,'ssp','hyd');
+Query OK, 1 row affected (0.049 sec)
+
+mysql> select * from college;
++------+-------+----------+
+| sid  | cname | caddress |
++------+-------+----------+
+|    1 | lbrce | vjd      |
+|    2 | lbrce | mym      |
+|    3 | pvp   | vjd      |
+|    4 | ssp   | hyd      |
++------+-------+----------+
+4 rows in set (0.005 sec)
+
+
+mysql> alter table college
+    -> drop foreign key college_ibfk_1;
+Query OK, 0 rows affected (0.377 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from college;
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| college |          1 | sid      |            1 | sid         | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.238 sec)
+
+mysql> alter table college
+    -> drop index sid;
+Query OK, 0 rows affected (0.167 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc college;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid      | int         | YES  |     | NULL    |       |
+| cname    | varchar(30) | YES  |     | NULL    |       |
+| caddress | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.028 sec)
+
+mysql> alter table college
+    -> add foreign key(sid) references student(sid);
+Query OK, 4 rows affected (1.217 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc college;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid      | int         | YES  | MUL | NULL    |       |
+| cname    | varchar(30) | YES  |     | NULL    |       |
+| caddress | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.019 sec)
+
