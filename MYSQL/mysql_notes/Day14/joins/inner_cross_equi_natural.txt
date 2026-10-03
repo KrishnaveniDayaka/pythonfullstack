@@ -1,0 +1,385 @@
+mysql> create table department(
+    -> d_id int primary key,
+    -> d_name varchar(40),
+    -> location varchar(40));
+Query OK, 0 rows affected (1.495 sec)
+
+mysql> insert into department values(1,'IT','hyderabad');
+Query OK, 1 row affected (0.257 sec)
+
+mysql> insert into department values(2,'HR','bangalore');
+Query OK, 1 row affected (0.065 sec)
+
+mysql> insert into department values(3,'Finance','hyderabad');
+Query OK, 1 row affected (4.605 sec)
+
+mysql> insert into department values(4,'marketing','chennai');
+Query OK, 1 row affected (0.091 sec)
+
+mysql> insert into department values(5,'sales','mumbai');
+Query OK, 1 row affected (0.058 sec)
+
+mysql> create table projects(
+    -> p_id int primary key,
+    -> p_name varchar(40),
+    -> d_id int);
+Query OK, 0 rows affected (0.785 sec)
+
+mysql> insert into projects values(101,'website',1);
+Query OK, 1 row affected (0.106 sec)
+
+mysql> insert into projects values(102,'recutriment',2);
+Query OK, 1 row affected (0.060 sec)
+
+mysql> insert into projects values(103,'banking app',3);
+Query OK, 1 row affected (0.075 sec)
+
+mysql> insert into projects values(104,'advertisment',4);
+Query OK, 1 row affected (0.147 sec)
+
+mysql> desc employees;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | int         | NO   | PRI | NULL    |       |
+| emp_name   | varchar(40) | YES  |     | NULL    |       |
+| department | varchar(40) | YES  |     | NULL    |       |
+| salary     | bigint      | YES  |     | NULL    |       |
+| city       | varchar(40) | YES  |     | NULL    |       |
+| experience | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.366 sec)
+
+mysql> desc departments;
+ERROR 1146 (42S02): Table 'mysql_practice.departments' doesn't exist
+mysql> desc department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| d_id     | int         | NO   | PRI | NULL    |       |
+| d_name   | varchar(40) | YES  |     | NULL    |       |
+| location | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.037 sec)
+
+mysql> desc projects;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| p_id   | int         | NO   | PRI | NULL    |       |
+| p_name | varchar(40) | YES  |     | NULL    |       |
+| d_id   | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (1.143 sec)
+
+mysql> select emp_name,d_name from employees as e ,department as d
+    -> where e.department=d.d_name;
++----------+--------+
+| emp_name | d_name |
++----------+--------+
+| rahul    | IT     |
+| priya    | HR     |
+| arjun    | IT     |
+| kiran    | HR     |
+| ramesh   | IT     |
+| anu      | HR     |
+| pooja    | IT     |
+| Naveen   | sales  |
+| Swathi   | sales  |
+| Manoj    | IT     |
+| Keerthi  | HR     |
+| Ajay     | sales  |
++----------+--------+
+12 rows in set (0.054 sec)
+
+mysql> create table employee1(
+    -> e_id int primary key,
+    -> e_name varchar(40),
+    -> d_id int,
+    -> salary int,
+    -> p_id int);
+Query OK, 0 rows affected (1.398 sec)
+
+mysql> desc employee1;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| e_id   | int         | NO   | PRI | NULL    |       |
+| e_name | varchar(40) | YES  |     | NULL    |       |
+| d_id   | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| p_id   | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.246 sec)
+
+mysql> desc department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| d_id     | int         | NO   | PRI | NULL    |       |
+| d_name   | varchar(40) | YES  |     | NULL    |       |
+| location | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.033 sec)
+
+mysql> desc projects;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| p_id   | int         | NO   | PRI | NULL    |       |
+| p_name | varchar(40) | YES  |     | NULL    |       |
+| d_id   | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.016 sec)
+
+mysql> insert into employee1 values(10,'rahul',1,50000,101);
+Query OK, 1 row affected (0.713 sec)
+
+mysql> insert into employee1 values(11,'priya',2,60000,102);
+Query OK, 1 row affected (4.058 sec)
+
+mysql> insert into employee1 values(12,'arjun',3,55000,103);
+Query OK, 1 row affected (0.062 sec)
+
+mysql> insert into employee1 values(13,'sneha',4,65000,104);
+Query OK, 1 row affected (0.058 sec)
+
+mysql> insert into employee1 values(14,'kiran',5,45000,null);
+Query OK, 1 row affected (0.051 sec)
+
+mysql> select * from employee1;
++------+--------+------+--------+------+
+| e_id | e_name | d_id | salary | p_id |
++------+--------+------+--------+------+
+|   10 | rahul  |    1 |  50000 |  101 |
+|   11 | priya  |    2 |  60000 |  102 |
+|   12 | arjun  |    3 |  55000 |  103 |
+|   13 | sneha  |    4 |  65000 |  104 |
+|   14 | kiran  |    5 |  45000 | NULL |
++------+--------+------+--------+------+
+5 rows in set (0.049 sec)
+
+mysql> select * from department;
++------+-----------+-----------+
+| d_id | d_name    | location  |
++------+-----------+-----------+
+|    1 | IT        | hyderabad |
+|    2 | HR        | bangalore |
+|    3 | Finance   | hyderabad |
+|    4 | marketing | chennai   |
+|    5 | sales     | mumbai    |
++------+-----------+-----------+
+5 rows in set (0.055 sec)
+
+mysql> select * from projects;
++------+--------------+------+
+| p_id | p_name       | d_id |
++------+--------------+------+
+|  101 | website      |    1 |
+|  102 | recutriment  |    2 |
+|  103 | banking app  |    3 |
+|  104 | advertisment |    4 |
++------+--------------+------+
+4 rows in set (0.032 sec)
+
+mysql> select e_name as employee_name,d_name as department_name from employee1 as e, department as d
+    -> where e.d_id=d.d_id;
++---------------+-----------------+
+| employee_name | department_name |
++---------------+-----------------+
+| rahul         | IT              |
+| priya         | HR              |
+| arjun         | Finance         |
+| sneha         | marketing       |
+| kiran         | sales           |
++---------------+-----------------+
+5 rows in set (0.035 sec)
+
+mysql> select e_id,e_name,d_name, location from employee1 as e, department as d
+    -> where e.d_id=d.d_id;
++------+--------+-----------+-----------+
+| e_id | e_name | d_name    | location  |
++------+--------+-----------+-----------+
+|   10 | rahul  | IT        | hyderabad |
+|   11 | priya  | HR        | bangalore |
+|   12 | arjun  | Finance   | hyderabad |
+|   13 | sneha  | marketing | chennai   |
+|   14 | kiran  | sales     | mumbai    |
++------+--------+-----------+-----------+
+5 rows in set (0.014 sec)
+
+mysql> select e_name,salary,location from employee1 as e, department as d
+    -> where e.d_id=d.d_id;
++--------+--------+-----------+
+| e_name | salary | location  |
++--------+--------+-----------+
+| rahul  |  50000 | hyderabad |
+| priya  |  60000 | bangalore |
+| arjun  |  55000 | hyderabad |
+| sneha  |  65000 | chennai   |
+| kiran  |  45000 | mumbai    |
++--------+--------+-----------+
+5 rows in set (0.013 sec)
+
+mysql> select e_name, d_name from employee1 as e
+    -> inner join department as d
+    -> on e.d_id=d.d_id;
++--------+-----------+
+| e_name | d_name    |
++--------+-----------+
+| rahul  | IT        |
+| priya  | HR        |
+| arjun  | Finance   |
+| sneha  | marketing |
+| kiran  | sales     |
++--------+-----------+
+5 rows in set (0.015 sec)
+
+mysql> select e_name ,d_name from employee1 as e
+    -> inner join department as d
+    -> on e.d_id=d.d_id and where city='hyderabad';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where city='hyderabad'' at line 3
+mysql> select e_name, d_name from employee1 as e
+    -> inner join department as d
+    -> on e.d_id=d.d_id
+    -> and location='hyderabad';
++--------+---------+
+| e_name | d_name  |
++--------+---------+
+| rahul  | IT      |
+| arjun  | Finance |
++--------+---------+
+2 rows in set (0.088 sec)
+
+mysql> select e_name ,d_name,location from employee1 as e
+    -> inner join department as d
+    -> on e.d_id=d.d_id and location='hyderabad';
++--------+---------+-----------+
+| e_name | d_name  | location  |
++--------+---------+-----------+
+| rahul  | IT      | hyderabad |
+| arjun  | Finance | hyderabad |
++--------+---------+-----------+
+2 rows in set (0.015 sec)
+
+mysql> select e_name ,d_name from employee1 as e
+    -> inner join department as d
+    -> on e.d_id=d.d_id;
++--------+-----------+
+| e_name | d_name    |
++--------+-----------+
+| rahul  | IT        |
+| priya  | HR        |
+| arjun  | Finance   |
+| sneha  | marketing |
+| kiran  | sales     |
++--------+-----------+
+5 rows in set (0.007 sec)
+
+mysql> select e_name,p_name,p_id from employee1 as e
+    -> inner join projects as p
+    -> on e.p_id=p.p_id;
+ERROR 1052 (23000): Column 'p_id' in field list is ambiguous
+mysql> select e_name,p_name,p_id from employee1 as e
+    -> inner join projects as p
+    -> on e.d_id=p.d_id;
+ERROR 1052 (23000): Column 'p_id' in field list is ambiguous
+mysql> select e_name,p_name from employee1 as e
+    -> inner join projects as p
+    -> on e.d_id=p.d_id;
++--------+--------------+
+| e_name | p_name       |
++--------+--------------+
+| rahul  | website      |
+| priya  | recutriment  |
+| arjun  | banking app  |
+| sneha  | advertisment |
++--------+--------------+
+4 rows in set (0.041 sec)
+
+mysql> select e_name,d_name,location from employee1 as e
+    -> natural join department as d;
++--------+-----------+-----------+
+| e_name | d_name    | location  |
++--------+-----------+-----------+
+| rahul  | IT        | hyderabad |
+| priya  | HR        | bangalore |
+| arjun  | Finance   | hyderabad |
+| sneha  | marketing | chennai   |
+| kiran  | sales     | mumbai    |
++--------+-----------+-----------+
+5 rows in set (0.029 sec)
+
+mysql> select e_id ,e_name,d_name,location,salary from employee1
+    -> natural join department;
++------+--------+-----------+-----------+--------+
+| e_id | e_name | d_name    | location  | salary |
++------+--------+-----------+-----------+--------+
+|   10 | rahul  | IT        | hyderabad |  50000 |
+|   11 | priya  | HR        | bangalore |  60000 |
+|   12 | arjun  | Finance   | hyderabad |  55000 |
+|   13 | sneha  | marketing | chennai   |  65000 |
+|   14 | kiran  | sales     | mumbai    |  45000 |
++------+--------+-----------+-----------+--------+
+5 rows in set (0.017 sec)
+
+mysql> select e_name,d_name from employee1
+    -> cross join department;
++--------+-----------+
+| e_name | d_name    |
++--------+-----------+
+| kiran  | IT        |
+| sneha  | IT        |
+| arjun  | IT        |
+| priya  | IT        |
+| rahul  | IT        |
+| kiran  | HR        |
+| sneha  | HR        |
+| arjun  | HR        |
+| priya  | HR        |
+| rahul  | HR        |
+| kiran  | Finance   |
+| sneha  | Finance   |
+| arjun  | Finance   |
+| priya  | Finance   |
+| rahul  | Finance   |
+| kiran  | marketing |
+| sneha  | marketing |
+| arjun  | marketing |
+| priya  | marketing |
+| rahul  | marketing |
+| kiran  | sales     |
+| sneha  | sales     |
+| arjun  | sales     |
+| priya  | sales     |
+| rahul  | sales     |
++--------+-----------+
+25 rows in set (0.017 sec)
+
+mysql> select p_name,d_name from projects
+    -> cross join department;
++--------------+-----------+
+| p_name       | d_name    |
++--------------+-----------+
+| advertisment | IT        |
+| banking app  | IT        |
+| recutriment  | IT        |
+| website      | IT        |
+| advertisment | HR        |
+| banking app  | HR        |
+| recutriment  | HR        |
+| website      | HR        |
+| advertisment | Finance   |
+| banking app  | Finance   |
+| recutriment  | Finance   |
+| website      | Finance   |
+| advertisment | marketing |
+| banking app  | marketing |
+| recutriment  | marketing |
+| website      | marketing |
+| advertisment | sales     |
+| banking app  | sales     |
+| recutriment  | sales     |
+| website      | sales     |
++--------------+-----------+
+20 rows in set (0.006 sec)

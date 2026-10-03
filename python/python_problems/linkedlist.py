@@ -16,9 +16,11 @@ class LinkedList:
         self.head=new_node
     def insert_at_end(self,data):
         new_node=Node(data)
+        #ll is empty
         if self.head is None:
             self.head=new_node
             return
+        #ll is not empty
         temp=self.head
         while temp.next is not None:
             temp=temp.next
